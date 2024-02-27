@@ -3,7 +3,7 @@ package sample.cafekiosk.api.service.order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sample.cafekiosk.api.service.order.request.OrderCreateRequest;
+import sample.cafekiosk.api.service.order.request.OrderCreateServiceRequest;
 import sample.cafekiosk.api.service.order.response.OrderResponse;
 import sample.cafekiosk.domain.order.Order;
 import sample.cafekiosk.domain.order.OrderRepository;
@@ -28,7 +28,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final StockRepository stockRepository;
 
-    public OrderResponse createOrder(OrderCreateRequest request, LocalDateTime registeredDateTime) {
+    public OrderResponse createOrder(OrderCreateServiceRequest request, LocalDateTime registeredDateTime) {
         //Product
         List<String> productNumbers = request.getProductNumbers();
         List<Product> products = findProductsBy(productNumbers);
@@ -84,4 +84,5 @@ public class OrderService {
         return stockProductNumbers.stream()
                 .collect(Collectors.groupingBy(p -> p, Collectors.counting()));
     }
+
 }
